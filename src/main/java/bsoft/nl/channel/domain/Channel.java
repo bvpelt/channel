@@ -1,29 +1,28 @@
 package bsoft.nl.channel.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.springframework.hateoas.ResourceSupport;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Channel implements Serializable {
+public class Channel extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int channelid;
 
     private String name; // max length 24
 
 
-    public int getId() {
-        return id;
+    public int getChannelid() {
+        return channelid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setChannelid(int id) {
+        this.channelid = id;
     }
 
     public String getName() {

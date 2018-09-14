@@ -6,4 +6,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
+
+    
 }

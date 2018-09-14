@@ -7,7 +7,7 @@ databaseChangeLog:
         tableName: channel
         columns:
         - column:
-            name: id
+            name: channelid
             type: int
             autoIncrement: true
             constraints:
@@ -22,7 +22,7 @@ databaseChangeLog:
         tableName: message
         columns:
         - column:
-            name: id
+            name: messageid
             type: int
             autoIncrement: true
             constraints:
@@ -38,5 +38,34 @@ databaseChangeLog:
             type: int
             constraints:
               nullable: false
-              foreignKeyName: fk_message_channel
-              references: channel(id)
+- changeSet:
+    id: 2
+    author: bart
+    changes:
+    - loadData:
+        columns:
+        - column:
+            name: name
+            type: STRING
+        encoding: UTF-8
+        file: inputdata/channel.csv
+        schemaName: public
+        separator: ","
+        tableName: channel
+- changeSet:
+    id: 3
+    author: bart
+    changes:
+    - loadData:
+        columns:
+        - column:
+            name: message
+            type: STRING
+        - column:
+            name: channelid
+            type: NUMERIC
+        encoding: UTF-8
+        file: inputdata/message.csv
+        schemaName: public
+        separator: ","
+        tableName: message

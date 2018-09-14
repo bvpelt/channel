@@ -60,6 +60,9 @@ channels=# ALTER USER "testuser" WITH PASSWORD '12345';
 - Liquibase https://www.liquibase.org/index.html
 - Example liquibase in spring https://github.com/spring-projects/spring-boot/tree/v2.0.4.RELEASE/spring-boot-samples/spring-boot-sample-liquibase
 - Example springboot with rest https://hellokoding.com/restful-api-example-with-spring-boot-spring-data-rest-and-mysql/
+- Example CORS https://grokonez.com/spring-framework/spring-boot/spring-cors-example-crossorigin-spring-boot
+- Example springboot and angular https://mydevgeek.com/angular-4-crud-application-with-spring-boot-rest-service-part-1/
+
 
 ## Example
 Add a channel
