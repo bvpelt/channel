@@ -2,11 +2,14 @@ package bsoft.nl.channel.domain;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class Message extends ResourceSupport implements Serializable  {
+public class Message extends ResourceSupport implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
@@ -17,7 +20,6 @@ public class Message extends ResourceSupport implements Serializable  {
     private String message; // max length 1024
 
     private int channelid;
-
 
     public int getMessageid() {
         return messageid;

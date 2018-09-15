@@ -41,6 +41,7 @@ databaseChangeLog:
 - changeSet:
     id: 2
     author: bart
+    runonChange: true
     changes:
     - loadData:
         columns:
@@ -55,6 +56,7 @@ databaseChangeLog:
 - changeSet:
     id: 3
     author: bart
+    runonChange: true
     changes:
     - loadData:
         columns:
@@ -69,3 +71,4 @@ databaseChangeLog:
         schemaName: public
         separator: ","
         tableName: message
+
