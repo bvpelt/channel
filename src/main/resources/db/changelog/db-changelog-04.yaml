@@ -1,0 +1,11 @@
+databaseChangeLog:
+- changeSet:
+        id: 4
+        author: bart
+        changes:
+        - addColumn:
+                columns:
+                - column:
+                        name: datetime
+                        type: datetime
+                tableName: message

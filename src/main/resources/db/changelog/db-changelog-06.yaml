@@ -1,0 +1,15 @@
+databaseChangeLog:
+
+- changeSet:
+    id: 7
+    author: bart
+    runonChange: true
+    changes:
+    - createIndex:
+        columns:
+          column:
+            name: name
+            type: varchar(24)
+        indexName: ix_name
+        tableName: channel
+        unique: true;

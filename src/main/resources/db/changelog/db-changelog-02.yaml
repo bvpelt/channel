@@ -1,0 +1,16 @@
+databaseChangeLog:
+- changeSet:
+    id: 2
+    author: bart
+    runonChange: true
+    changes:
+    - loadData:
+        columns:
+        - column:
+            name: name
+            type: STRING
+        encoding: UTF-8
+        file: inputdata/channel.csv
+        schemaName: public
+        separator: ","
+        tableName: channel

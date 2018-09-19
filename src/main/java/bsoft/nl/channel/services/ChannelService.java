@@ -22,12 +22,25 @@ public class ChannelService {
         this.channelRepository = channelRepository;
     }
 
-    /*
-    public List<Channel> getAll() {
-        return channelRepository.findAll();
-    }
-   */
+
     public Iterable<Channel> getAll() {
         return channelRepository.findAll();
     }
+
+    public Channel create(final Channel channel) {
+        Channel savedChannel = null;
+
+        List<Channel> existingChannel = null;
+
+        existingChannel = channelRepository.findChannelByName(channel.getName());
+
+        if ((existingChannel != null) && (existingChannel.size() > 0)) {
+            logger.error("Channel already exists, id: {} name:{}", channel.getChannelId(), channel.getName());
+        } else {
+            savedChannel = channelRepository.save(channel);
+            logger.info("Persisted new channel: {}", channel.getChannelId());
+        }
+        return savedChannel;
+    }
+
 }

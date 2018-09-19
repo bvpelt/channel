@@ -1,0 +1,40 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: bart
+    changes:
+    - createTable:
+        tableName: channel
+        columns:
+        - column:
+            name: channelid
+            type: int
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: name
+            type: varchar(24)
+            constraints:
+              nullable: false
+    - createTable:
+        tableName: message
+        columns:
+        - column:
+            name: messageid
+            type: int
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: message
+            type: varchar(1024)
+            constraints:
+              nullable: false
+        - column:
+            name: channelid
+            type: int
+            constraints:
+              nullable: false

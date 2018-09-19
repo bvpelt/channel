@@ -1,9 +1,8 @@
 package bsoft.nl.channel.controllers;
 
+import bsoft.nl.channel.domain.Channel;
 import bsoft.nl.channel.domain.Message;
 import bsoft.nl.channel.domain.MessagesList;
-import bsoft.nl.channel.repositories.MessageRepository;
-import bsoft.nl.channel.services.ChannelService;
 import bsoft.nl.channel.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +12,10 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,11 +23,6 @@ public class MessageController extends ResourceSupport {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     private MessageService messageService = null;
-
-    /*
-    @Autowired
-    MessageRepository repository;
-    */
 
     @Autowired
     public MessageController(final MessageService messageService) {
@@ -46,8 +39,10 @@ public class MessageController extends ResourceSupport {
         MessagesList messageResult = new MessagesList();
 
         for (Message message : messageList) {
-            Link link = ControllerLinkBuilder.linkTo(MessageController.class)
-                    .slash(message.getMessageid())
+            Link link = ControllerLinkBuilder
+                    .linkTo(ControllerLinkBuilder
+                            .methodOn(MessageController.class).getMessages())
+                    .slash(message.getMessageId())
                     .withSelfRel();
 
             message.add(link);
@@ -55,11 +50,12 @@ public class MessageController extends ResourceSupport {
             messageResult.getMessage().add(message);
         }
 
-        //Adding self link accounts collection resource
+        //Adding self link message collection resource
         Link selfLink = ControllerLinkBuilder
                 .linkTo(ControllerLinkBuilder
                         .methodOn(MessageController.class).getMessages())
                 .withSelfRel();
+
         messageResult.add(selfLink);
 
         logger.info("Result: {}", messageResult.toString());
@@ -73,14 +69,15 @@ public class MessageController extends ResourceSupport {
     public ResponseEntity<MessagesList> getMessages() {
         logger.info("Get message list");
 
-        //List<Message> messageList = messageService.getAll();
         Iterable<Message> messageList = messageService.getAll();
 
         MessagesList messageResult = new MessagesList();
 
         for (Message message : messageList) {
-            Link link = ControllerLinkBuilder.linkTo(MessageController.class)
-                    .slash(message.getMessageid())
+            Link link = ControllerLinkBuilder
+                    .linkTo(ControllerLinkBuilder
+                            .methodOn(MessageController.class).getMessages())
+                            .slash(message.getMessageId())
                     .withSelfRel();
 
             message.add(link);
@@ -88,11 +85,12 @@ public class MessageController extends ResourceSupport {
             messageResult.getMessage().add(message);
         }
 
-        //Adding self link accounts collection resource
+        //Adding self link message collection resource
         Link selfLink = ControllerLinkBuilder
                 .linkTo(ControllerLinkBuilder
                         .methodOn(MessageController.class).getMessages())
                 .withSelfRel();
+
         messageResult.add(selfLink);
 
         logger.info("Result: {}", messageResult.toString());
@@ -100,5 +98,25 @@ public class MessageController extends ResourceSupport {
         return new ResponseEntity<MessagesList>(messageResult, HttpStatus.OK);
     }
 
+    /*
+   POST - Create new message
+    */
+    @PostMapping("/messages/channel/{channelName}")
+    public ResponseEntity<Message> creatMessage(@PathVariable String channelName, @RequestBody final Message message) {
+        logger.info("Create message for channel: {}, message: {}", message);
+
+        Message savedMessage = messageService.create(channelName, message);
+
+        if (null == savedMessage) {
+            return new ResponseEntity<Message>(savedMessage, HttpStatus.NOT_MODIFIED);
+        } else {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(savedMessage.getMessageId()).toUri();
+
+            logger.info("Message id: " + savedMessage.getMessageId() + " saved");
+
+            return new ResponseEntity<Message>(savedMessage, HttpStatus.CREATED);
+        }
+    }
 
 }

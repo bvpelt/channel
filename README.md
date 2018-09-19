@@ -18,7 +18,7 @@ channel content
 message content
 - id int autoincrement, primary key, not null
 - message varchar[1024] not null
-- channelid int not null
+- channelId int not null
 ```   
    
 
@@ -56,12 +56,19 @@ GRANT
 channels=# ALTER USER "testuser" WITH PASSWORD '12345'; 
 ```
 
+- Update sequence
+``` 
+$ psql channels
+channels=# ALTER SEQUENCE message_messageid_seq RESTART WITH 35;
+```
 ## Docs
 - Liquibase https://www.liquibase.org/index.html
 - Example liquibase in spring https://github.com/spring-projects/spring-boot/tree/v2.0.4.RELEASE/spring-boot-samples/spring-boot-sample-liquibase
 - Example springboot with rest https://hellokoding.com/restful-api-example-with-spring-boot-spring-data-rest-and-mysql/
 - Example CORS https://grokonez.com/spring-framework/spring-boot/spring-cors-example-crossorigin-spring-boot
 - Example springboot and angular https://mydevgeek.com/angular-4-crud-application-with-spring-boot-rest-service-part-1/
+- Date time https://stackoverflow.com/questions/23718383/jpa-support-for-java-8-new-date-and-time-api
+- Example changelog https://github.com/liquibase/liquibase/blob/master/liquibase-integration-tests/src/test/resources/changelogs/yaml/common.tests.changelog.yaml
 
 
 ## Example
@@ -105,7 +112,7 @@ Date: Sat, 01 Sep 2018 19:12:28 GMT
   }
 }
 
-$ curl -i -X POST -H "Content-type:application/json" -d "{\"message\": \"Texel is a beautifull island\", \"channelid\": 1}" http://localhost:8080/messages
+$ curl -i -X POST -H "Content-type:application/json" -d "{\"message\": \"Texel is a beautifull island\", \"channelId\": 1}" http://localhost:8080/messages
 HTTP/1.1 201 
 Location: http://localhost:8080/messages/1
 Content-Type: application/hal+json;charset=UTF-8
@@ -114,7 +121,7 @@ Date: Sat, 01 Sep 2018 19:05:45 GMT
 
 {
   "message" : "Texel is a beautifull island",
-  "channelid" : 1,
+  "channelId" : 1,
   "_links" : {
     "self" : {
       "href" : "http://localhost:8080/messages/1"
@@ -200,7 +207,7 @@ Date: Sat, 01 Sep 2018 19:08:05 GMT
   "_embedded" : {
     "messages" : [ {
       "message" : "Texel is a beautifull island",
-      "channelid" : 1,
+      "channelId" : 1,
       "_links" : {
         "self" : {
           "href" : "http://localhost:8080/messages/1"

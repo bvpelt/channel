@@ -11,22 +11,17 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
+import java.net.URI;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class ChannelController extends ResourceSupport {
     private static final Logger logger = LoggerFactory.getLogger(ChannelController.class);
 
     private ChannelService channelService = null;
-
-    /*
-    @Autowired
-    ChannelRepository repository;
-    */
 
     @Autowired
     public ChannelController(final ChannelService channelService) {
@@ -34,18 +29,18 @@ public class ChannelController extends ResourceSupport {
     }
 
     @GetMapping("/channels")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<ChannelsList> getChannels() {
         logger.info("Get channel list");
 
-        //List<Channel> channelList = channelService.getAll();
         Iterable<Channel> channelList = channelService.getAll();
 
         ChannelsList channelResult = new ChannelsList();
 
         for (Channel channel : channelList) {
-            Link link = ControllerLinkBuilder.linkTo(ChannelController.class)
-                    .slash(channel.getChannelid())
+            Link link = ControllerLinkBuilder
+                    .linkTo(ControllerLinkBuilder
+                            .methodOn(ChannelController.class).getChannels())
+                    .slash(channel.getChannelId())
                     .withSelfRel();
 
             channel.add(link);
@@ -53,15 +48,39 @@ public class ChannelController extends ResourceSupport {
             channelResult.getChannel().add(channel);
         }
 
-        //Adding self link accounts collection resource
+        //Adding self link channels collection resource
         Link selfLink = ControllerLinkBuilder
                 .linkTo(ControllerLinkBuilder
                         .methodOn(ChannelController.class).getChannels())
                 .withSelfRel();
+
+
         channelResult.add(selfLink);
 
         logger.info("Result: {}", channelResult.toString());
 
         return new ResponseEntity<ChannelsList>(channelResult, HttpStatus.OK);
     }
+
+    /*
+    POST - Create new channel
+     */
+    @PostMapping("/channels")
+    public ResponseEntity<Channel> creatChannel(@RequestBody final Channel channel) {
+        logger.info("Create channel for: {}", channel);
+
+        Channel savedChannel = channelService.create(channel);
+
+        if (null == savedChannel) {
+            return new ResponseEntity<Channel>(savedChannel, HttpStatus.NOT_MODIFIED);
+        } else {
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                    .buildAndExpand(savedChannel.getChannelId()).toUri();
+
+            logger.info("Channel id: " + savedChannel.getChannelId() + " saved");
+
+            return new ResponseEntity<Channel>(savedChannel, HttpStatus.CREATED);
+        }
+    }
+
 }
