@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
+
+@CrossOrigin(origins = "*")
 @RestController
 public class MessageController extends ResourceSupport {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
@@ -30,7 +33,6 @@ public class MessageController extends ResourceSupport {
     }
 
     @GetMapping("/messages/channel/{channelName}")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<MessagesList> getMessagesByChannelName(@PathVariable String channelName) {
         logger.info("Get message by name: {}", channelName);
 
@@ -65,7 +67,6 @@ public class MessageController extends ResourceSupport {
 
 
     @GetMapping("/messages")
-    @CrossOrigin(origins = "*")
     public ResponseEntity<MessagesList> getMessages() {
         logger.info("Get message list");
 
@@ -113,7 +114,17 @@ public class MessageController extends ResourceSupport {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                     .buildAndExpand(savedMessage.getMessageId()).toUri();
 
-            logger.info("Message id: " + savedMessage.getMessageId() + " saved");
+            logger.info("Message id: " + savedMessage.getMessageId() + " saved at url: {}", location.toString());
+
+            List<Message> channelResult = new ArrayList<Message>();
+
+            Link link = ControllerLinkBuilder
+                    .linkTo(ControllerLinkBuilder
+                            .methodOn(MessageController.class).getMessages())
+                    .slash(savedMessage.getChannelId())
+                    .withSelfRel();
+
+            savedMessage.add(link);
 
             return new ResponseEntity<Message>(savedMessage, HttpStatus.CREATED);
         }

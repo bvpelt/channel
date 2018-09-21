@@ -74,80 +74,36 @@ channels=# ALTER SEQUENCE message_messageid_seq RESTART WITH 35;
 ## Example
 Add a channel
 ``` 
-$ curl -i -X POST -H "Content-type:application/json" -d "{\"name\": \"Reizen\"}" http://localhost:8080/channels
-HTTP/1.1 201 
-Location: http://localhost:8080/channels/1
-Content-Type: application/hal+json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Sat, 01 Sep 2018 19:01:48 GMT
-
-{
-  "name" : "Reizen",
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/channels/1"
-    },
-    "channel" : {
-      "href" : "http://localhost:8080/channels/1"
-    }
-  }
-}
-
-$ curl -i -X POST -H "Content-type:application/json" -d "{\"name\": \"Boeken\"}" http://localhost:8080/channels
-HTTP/1.1 201 
-Location: http://localhost:8080/channels/2
-Content-Type: application/hal+json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Sat, 01 Sep 2018 19:12:28 GMT
-
-{
-  "name" : "Boeken",
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/channels/2"
-    },
-    "channel" : {
-      "href" : "http://localhost:8080/channels/2"
-    }
-  }
-}
-
-$ curl -i -X POST -H "Content-type:application/json" -d "{\"message\": \"Texel is a beautifull island\", \"channelId\": 1}" http://localhost:8080/messages
-HTTP/1.1 201 
-Location: http://localhost:8080/messages/1
-Content-Type: application/hal+json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Sat, 01 Sep 2018 19:05:45 GMT
-
-{
-  "message" : "Texel is a beautifull island",
-  "channelId" : 1,
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/messages/1"
-    },
-    "message" : {
-      "href" : "http://localhost:8080/messages/1"
-    }
-  }
-}
-
-$ curl -i -X GET http://localhost:8080/channels/1
+curl -v -i -X POST -H "Content-typeapplication/json" -d "{\"name\": \"Filmen\"}" http://localhost:8080/channels
+Note: Unnecessary use of -X or --request, POST is already inferred.
+*   Trying 127.0.0.1...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> POST /channels HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.47.0
+> Accept: */*
+> Content-type:application/json
+> Content-Length: 18
+> 
+* upload completely sent off: 18 out of 18 bytes
+< HTTP/1.1 200 
 HTTP/1.1 200 
+< Content-Type: application/hal+json;charset=UTF-8
 Content-Type: application/hal+json;charset=UTF-8
+< Transfer-Encoding: chunked
 Transfer-Encoding: chunked
-Date: Sat, 01 Sep 2018 19:13:49 GMT
+< Date: Fri, 21 Sep 2018 17:31:36 GMT
+Date: Fri, 21 Sep 2018 17:31:36 GMT
 
+< 
 {
-  "name" : "Reizen",
+  "name" : "Filmen",
   "_links" : {
     "self" : {
-      "href" : "http://localhost:8080/channels/1"
-    },
-    "channel" : {
-      "href" : "http://localhost:8080/channels/1"
+      "href" : "http://localhost:8080/channels/15"
     }
   }
+* Connection #0 to host localhost left intact
 }
 
 $ curl -i -X GET http://localhost:8080/channels

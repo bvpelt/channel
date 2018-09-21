@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -66,7 +68,7 @@ public class ChannelController extends ResourceSupport {
     POST - Create new channel
      */
     @PostMapping("/channels")
-    public ResponseEntity<Channel> creatChannel(@RequestBody final Channel channel) {
+    public ResponseEntity<Channel> createChannel(@RequestBody final Channel channel) {
         logger.info("Create channel for: {}", channel);
 
         Channel savedChannel = channelService.create(channel);
@@ -77,7 +79,17 @@ public class ChannelController extends ResourceSupport {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                     .buildAndExpand(savedChannel.getChannelId()).toUri();
 
-            logger.info("Channel id: " + savedChannel.getChannelId() + " saved");
+            logger.info("Channel id: " + savedChannel.getChannelId() + " saved at uri: {}", location.toString());
+
+            List<Channel> channelResult = new ArrayList<Channel>();
+
+            Link link = ControllerLinkBuilder
+                    .linkTo(ControllerLinkBuilder
+                            .methodOn(ChannelController.class).getChannels())
+                    .slash(savedChannel.getChannelId())
+                    .withSelfRel();
+
+            savedChannel.add(link);
 
             return new ResponseEntity<Channel>(savedChannel, HttpStatus.CREATED);
         }
