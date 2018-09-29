@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +106,10 @@ public class MessageController extends ResourceSupport {
     @PostMapping("/messages/channel/{channelName}")
     public ResponseEntity<Message> creatMessage(@PathVariable String channelName, @RequestBody final Message message) {
         logger.info("Create message for channel: {}, message: {}", message);
+
+        if (message.getDateTime() == null) {
+            message.setDateTime(LocalDateTime.now());
+        }
 
         Message savedMessage = messageService.create(channelName, message);
 
