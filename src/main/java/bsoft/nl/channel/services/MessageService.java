@@ -7,10 +7,12 @@ import bsoft.nl.channel.repositories.MessageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import org.springframework.cache.annotation.Cacheable;
 
 @Transactional
 @Service
@@ -30,10 +32,12 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
+    @Cacheable(cacheNames="allMessages", key="#channelName")
     public List<Message> getMessageByChannelName(final String channelName) {
         return messageRepository.findMessageByChannelName(channelName);
     }
 
+    @CacheEvict(cacheNames="allMessages", key="#channel", allEntries=false)
     public Message create(final String channel, final Message message) {
         Message savedMessage = null;
 

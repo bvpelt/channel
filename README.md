@@ -25,6 +25,7 @@ message content
 ## Technical description
 - Use springboot
 - Use rest/json web services
+- Use [caching](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html) and [configuration of caching](https://docs.spring.io/spring/docs/5.0.9.RELEASE/spring-framework-reference/integration.html#cache)
 
 ## Development
 - Test using h2, console during test available at http://localhost:8080/h2-console 

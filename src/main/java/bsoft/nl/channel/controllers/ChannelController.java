@@ -6,7 +6,10 @@ import bsoft.nl.channel.services.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.xml.ws.Response;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,7 @@ public class ChannelController extends ResourceSupport {
     public ChannelController(final ChannelService channelService) {
         this.channelService = channelService;
     }
+
 
     @GetMapping("/channels")
     public ResponseEntity<ChannelsList> getChannels() {
@@ -80,16 +85,6 @@ public class ChannelController extends ResourceSupport {
                     .buildAndExpand(savedChannel.getChannelId()).toUri();
 
             logger.info("Channel id: " + savedChannel.getChannelId() + " saved at uri: {}", location.toString());
-
-            List<Channel> channelResult = new ArrayList<Channel>();
-
-            Link link = ControllerLinkBuilder
-                    .linkTo(ControllerLinkBuilder
-                            .methodOn(ChannelController.class).getChannels())
-                    .slash(savedChannel.getChannelId())
-                    .withSelfRel();
-
-            savedChannel.add(link);
 
             return new ResponseEntity<Channel>(savedChannel, HttpStatus.CREATED);
         }

@@ -7,6 +7,8 @@ import bsoft.nl.channel.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -66,7 +68,6 @@ public class MessageController extends ResourceSupport {
         return new ResponseEntity<MessagesList>(messageResult, HttpStatus.OK);
     }
 
-
     @GetMapping("/messages")
     public ResponseEntity<MessagesList> getMessages() {
         logger.info("Get message list");
@@ -120,16 +121,6 @@ public class MessageController extends ResourceSupport {
                     .buildAndExpand(savedMessage.getMessageId()).toUri();
 
             logger.info("Message id: " + savedMessage.getMessageId() + " saved at url: {}", location.toString());
-
-            List<Message> channelResult = new ArrayList<Message>();
-
-            Link link = ControllerLinkBuilder
-                    .linkTo(ControllerLinkBuilder
-                            .methodOn(MessageController.class).getMessages())
-                    .slash(savedMessage.getChannelId())
-                    .withSelfRel();
-
-            savedMessage.add(link);
 
             return new ResponseEntity<Message>(savedMessage, HttpStatus.CREATED);
         }

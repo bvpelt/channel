@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelsList extends ResourceSupport implements Serializable {
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 3L;
 
     private List<Channel> channels = new ArrayList<Channel>();
 

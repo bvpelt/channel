@@ -5,6 +5,8 @@ import bsoft.nl.channel.repositories.ChannelRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,11 +24,12 @@ public class ChannelService {
         this.channelRepository = channelRepository;
     }
 
-
+    @Cacheable("allChannels")
     public Iterable<Channel> getAll() {
         return channelRepository.findAll();
     }
 
+    @CacheEvict(cacheNames="allChannels", allEntries=true)
     public Channel create(final Channel channel) {
         Channel savedChannel = null;
 
