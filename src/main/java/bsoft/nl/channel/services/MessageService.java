@@ -50,8 +50,9 @@ public class MessageService {
 
         if ((existingChannel != null) && (existingChannel.size() == 1)) {
 
+            // Check if message already exists
             message.setChannelId(existingChannel.get(0).getChannelId());
-            existingMessage = messageRepository.findMessageByChannelNameAndDateTime(message.getChannelId(), message.getDateTime(), message.getMessage());
+            existingMessage = messageRepository.findMessageByChannelIdAndDateTime(message.getChannelId(), message.getDateTime());
 
             if ((existingMessage != null) && (existingMessage.size() > 0)) {
                 logger.error("Message already exists, id: {}, datatime: {}", message.getMessageId(), message.getDateTime());

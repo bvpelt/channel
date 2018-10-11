@@ -90,4 +90,20 @@ public class ChannelController extends ResourceSupport {
         }
     }
 
+    /*
+   Delete - Delete an existing channel
+    */
+    @DeleteMapping("/channels/{channelName}")
+    public ResponseEntity<Channel> deleteChannel(@PathVariable String channelName) {
+        logger.info("Delete channel for: {}", channelName);
+        Channel savedChannel = null;
+        boolean result = channelService.delete(channelName);
+
+        if (result) {
+            return new ResponseEntity<Channel>(savedChannel, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<Channel>(savedChannel, HttpStatus.NOT_MODIFIED);
+        }
+    }
+
 }
