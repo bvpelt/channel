@@ -2,6 +2,11 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd"
          updateCheck="true" monitoring="autodetect" dynamicConfig="true">
+
+    <!-- storage location of the cache -->
+    <diskStore path="/tmp/ehcache"/>
+
+    <!-- several caches -->
     <cache name="allMessages"
            maxEntriesLocalHeap="5000"
            maxEntriesLocalDisk="10000"

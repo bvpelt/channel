@@ -1,25 +1,25 @@
 databaseChangeLog:
 
 - changeSet:
-        id: 5
-        author: bart
-        sql: delete from message;
+    id: 5
+    author: bart
+    sql: delete from message;
 
 - changeSet:
-        id: 6
-        author: bart
-        runonChange: true
-        changes:
-        - loadData:
-                columns:
-                - column:
-                        name: message
-                        type: STRING
-                - column:
-                        name: channelid
-                        type: NUMERIC
-                encoding: UTF-8
-                file: inputdata/message-01.csv
-                schemaName: public
-                separator: ","
-                tableName: message
+    id: 6
+    author: bart
+    runonChange: true
+    changes:
+    - loadData:
+        columns:
+        - column:
+            name: message
+            type: STRING
+        - column:
+            name: channelid
+            type: NUMERIC
+        encoding: UTF-8
+        file: inputdata/message-01.csv
+        schemaName: public
+        separator: ","
+        tableName: message

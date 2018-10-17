@@ -13,6 +13,9 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @EnableCaching
 @SpringBootApplication
@@ -26,21 +29,23 @@ public class ChannelApplication {
     @Autowired
     MessageRepository messageRepository;
 
-    @Bean
-    public CacheManager getEhCacheManager(){
-        return  new EhCacheCacheManager(getEhCacheFactory().getObject());
+    public static void main(String[] args) {
+
+        SpringApplication.run(ChannelApplication.class, args);
     }
 
     @Bean
-    public EhCacheManagerFactoryBean getEhCacheFactory(){
+    public CacheManager getEhCacheManager() {
+        return new EhCacheCacheManager(getEhCacheFactory().getObject());
+    }
+
+    @Bean
+    public EhCacheManagerFactoryBean getEhCacheFactory() {
         EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
         factoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
         factoryBean.setShared(true);
         return factoryBean;
     }
 
-    public static void main(String[] args) {
 
-        SpringApplication.run(ChannelApplication.class, args);
-    }
 }

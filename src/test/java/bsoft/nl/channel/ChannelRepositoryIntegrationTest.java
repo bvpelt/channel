@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class ChannelRepositoryIntegrationTest {
     @Autowired
     private ChannelRepository channelRepository;
 
-    public ChannelRepositoryIntegrationTest(){
+    public ChannelRepositoryIntegrationTest() {
 
     }
 
@@ -44,8 +43,8 @@ public class ChannelRepositoryIntegrationTest {
         logger.info("Start test: {}", name.getMethodName());
         // get list of all known channels
         List<Channel> channels = channelRepository.findAll();
-        assertThat (channels).isNotNull();
-        assertThat (channels.size()).isEqualTo(12);
+        assertThat(channels).isNotNull();
+        assertThat(channels.size()).isEqualTo(12);
         logger.info("End   test: {}", name.getMethodName());
     }
 
@@ -58,11 +57,11 @@ public class ChannelRepositoryIntegrationTest {
         List<Channel> channels = channelRepository.findChannelByName(channelName);
 
         // Check that channel exists by checking the list
-        assertThat (channels).isNotNull();
-        assertThat (channels.size()).isEqualTo(1);
+        assertThat(channels).isNotNull();
+        assertThat(channels.size()).isEqualTo(1);
         // Anc checking the content of the list
         Channel channel = channels.get(0);
-        assertThat (channel).isNotNull();
+        assertThat(channel).isNotNull();
         assertThat(channel.getName()).isEqualTo(channelName);
         logger.info("End   test: {}", name.getMethodName());
     }
@@ -79,21 +78,21 @@ public class ChannelRepositoryIntegrationTest {
 
         // Insert channel
         Channel savedChannel = entityManager.persist(channel);
-        assertThat (savedChannel).isNotNull();
+        assertThat(savedChannel).isNotNull();
         assertThat(savedChannel.getName()).isEqualTo(channelName);
 
         // Check that channel exists
         channels = channelRepository.findChannelByName(channelName);
-        assertThat (channels).isNotNull();
-        assertThat (channels.size()).isEqualTo(1);
+        assertThat(channels).isNotNull();
+        assertThat(channels.size()).isEqualTo(1);
 
         // Delete channel
         channelRepository.deleteChannelByName(channelName);
 
         // Check that channel is deleted
         channels = channelRepository.findChannelByName(channelName);
-        assertThat (channels).isNotNull();
-        assertThat (channels.size()).isEqualTo(0);
+        assertThat(channels).isNotNull();
+        assertThat(channels.size()).isEqualTo(0);
         logger.info("End   test: {}", name.getMethodName());
     }
 
@@ -101,7 +100,7 @@ public class ChannelRepositoryIntegrationTest {
     public void getAllChannelsByPage() {
         logger.info("Start test: {}", name.getMethodName());
         // get list of all known channels
-        int PAGESIZE=2;
+        int PAGESIZE = 2;
         for (int pageNumber = 1; pageNumber < 4; pageNumber++) {
             PageRequest request = PageRequest.of(pageNumber - 1, PAGESIZE, Sort.Direction.ASC, "name");
 

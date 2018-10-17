@@ -1,14 +1,11 @@
 package bsoft.nl.channel.controllers;
 
-import bsoft.nl.channel.domain.Channel;
 import bsoft.nl.channel.domain.Message;
 import bsoft.nl.channel.domain.MessagesList;
 import bsoft.nl.channel.services.MessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -19,11 +16,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",
+        allowCredentials = "true",
+        allowedHeaders = {"*"},
+        methods = { RequestMethod.GET,
+                RequestMethod.DELETE,
+                RequestMethod.POST,
+                RequestMethod.OPTIONS
+        })
 @RestController
 public class MessageController extends ResourceSupport {
     private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
@@ -44,13 +47,15 @@ public class MessageController extends ResourceSupport {
         MessagesList messageResult = new MessagesList();
 
         for (Message message : messageList) {
-            Link link = ControllerLinkBuilder
-                    .linkTo(ControllerLinkBuilder
-                            .methodOn(MessageController.class).getMessages())
-                    .slash(message.getMessageId())
-                    .withSelfRel();
+            if (message.getLinks().size() == 0) {  // result can be cached with link already added
+                Link link = ControllerLinkBuilder
+                        .linkTo(ControllerLinkBuilder
+                                .methodOn(MessageController.class).getMessages())
+                        .slash(message.getMessageId())
+                        .withSelfRel();
 
-            message.add(link);
+                message.add(link);
+            }
 
             messageResult.getMessage().add(message);
         }
@@ -80,7 +85,7 @@ public class MessageController extends ResourceSupport {
             Link link = ControllerLinkBuilder
                     .linkTo(ControllerLinkBuilder
                             .methodOn(MessageController.class).getMessages())
-                            .slash(message.getMessageId())
+                    .slash(message.getMessageId())
                     .withSelfRel();
 
             message.add(link);

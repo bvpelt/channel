@@ -6,10 +6,7 @@ import bsoft.nl.channel.services.ChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
@@ -17,12 +14,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.xml.ws.Response;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",
+             allowCredentials = "true",
+             allowedHeaders = {"*"},
+             methods = { RequestMethod.GET,
+                         RequestMethod.DELETE,
+                         RequestMethod.POST,
+                         RequestMethod.OPTIONS
+                        })
 @RestController
 public class ChannelController extends ResourceSupport {
     private static final Logger logger = LoggerFactory.getLogger(ChannelController.class);
@@ -44,14 +45,15 @@ public class ChannelController extends ResourceSupport {
         ChannelsList channelResult = new ChannelsList();
 
         for (Channel channel : channelList) {
-            Link link = ControllerLinkBuilder
-                    .linkTo(ControllerLinkBuilder
-                            .methodOn(ChannelController.class).getChannels())
-                    .slash(channel.getChannelId())
-                    .withSelfRel();
+            if (channel.getLinks().size() == 0) {
+                Link link = ControllerLinkBuilder
+                        .linkTo(ControllerLinkBuilder
+                                .methodOn(ChannelController.class).getChannels())
+                        .slash(channel.getChannelId())
+                        .withSelfRel();
 
-            channel.add(link);
-
+                channel.add(link);
+            }
             channelResult.getChannel().add(channel);
         }
 

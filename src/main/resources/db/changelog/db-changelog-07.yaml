@@ -1,0 +1,46 @@
+databaseChangeLog:
+- changeSet:
+    id: 8
+    author: bart
+    changes:
+    - createTable:
+        tableName: account
+        columns:
+        - column:
+            name: accountid
+            type: int
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: id
+            type: varchar(40)
+            constraints:
+              nullable: false
+        - column:
+            name: username
+            type: varchar(24)
+            constraints:
+              nullable: false
+        - column:
+            name: password
+            type: varchar(256)
+            constraints:
+              nullable: false
+    - createIndex:
+        columns:
+          column:
+            name: id
+            type: varchar(40)
+        indexName: ix_id
+        tableName: account
+        unique: true;
+    - createIndex:
+        columns:
+          column:
+            name: username
+            type: varchar(24)
+        indexName: ix_username
+        tableName: account
+        unique: true;

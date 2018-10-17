@@ -34,6 +34,6 @@ public class Channel extends ResourceSupport implements Serializable {
     }
 
     public String toString() {
-        return (name == null ? "": name);
+        return (name == null ? "" : name);
     }
 }

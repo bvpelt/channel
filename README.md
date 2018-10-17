@@ -26,7 +26,13 @@ message content
 - Use springboot
 - Use rest/json web services
 - Use [caching](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html) and [configuration of caching](https://docs.spring.io/spring/docs/5.0.9.RELEASE/spring-framework-reference/integration.html#cache)
-
+- Websecurity 
+    - [example rest with basic authentication](http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/)
+    - [example configurations](https://www.programcreek.com/java-api-examples/?api=org.springframework.security.config.http.SessionCreationPolicy)
+    - [example 2015](http://ryanjbaxter.com/2015/01/06/securing-rest-apis-with-spring-boot/)
+    - [spring tutorial](https://spring.io/guides/tutorials/spring-security-and-angular-js/)
+    
+    
 ## Development
 - Test using h2, console during test available at http://localhost:8080/h2-console 
 - Run using postgresql

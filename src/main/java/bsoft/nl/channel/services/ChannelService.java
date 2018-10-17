@@ -41,7 +41,7 @@ public class ChannelService {
         return channelRepository.findAll(request).getContent();
     }
 
-    @CacheEvict(cacheNames="allChannels", allEntries=true)
+    @CacheEvict(cacheNames = "allChannels", allEntries = true)
     public Channel create(final Channel channel) {
         Channel savedChannel = null;
 
@@ -58,7 +58,7 @@ public class ChannelService {
         return savedChannel;
     }
 
-    @CacheEvict(cacheNames="allChannels", allEntries=true)
+    @CacheEvict(cacheNames = "allChannels", allEntries = true)
     public boolean delete(final String channelName) {
         boolean deleted = false;
         List<Channel> existingChannel = null;

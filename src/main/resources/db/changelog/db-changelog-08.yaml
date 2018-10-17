@@ -1,0 +1,25 @@
+databaseChangeLog:
+- changeSet:
+    id: 9
+    author: bart
+    runonChange: true
+    changes:
+    - loadData:
+        columns:
+        - column:
+            name: accountid
+            type: NUMERIC
+        - column:
+            name: id
+            type: STRING
+        - column:
+            name: username
+            type: STRING
+        - column:
+            name: password
+            type: STRING
+        encoding: UTF-8
+        file: inputdata/account.csv
+        schemaName: public
+        separator: ","
+        tableName: account

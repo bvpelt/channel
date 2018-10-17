@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
@@ -48,8 +47,8 @@ public class MessageRepositoryIntegrationTest {
         logger.info("Start test: {}", name.getMethodName());
         // get list of all known messages
         List<Message> messages = messageRepository.findAll();
-        assertThat (messages).isNotNull();
-        assertThat (messages.size()).isEqualTo(33);
+        assertThat(messages).isNotNull();
+        assertThat(messages.size()).isEqualTo(33);
         logger.info("End   test: {}", name.getMethodName());
     }
 
@@ -59,8 +58,8 @@ public class MessageRepositoryIntegrationTest {
         // get list of all known messages
         String channelName = "Nederland";
         List<Message> messages = messageRepository.findMessageByChannelName(channelName);
-        assertThat (messages).isNotNull();
-        assertThat (messages.size()).isEqualTo(32);
+        assertThat(messages).isNotNull();
+        assertThat(messages.size()).isEqualTo(32);
         logger.info("End   test: {}", name.getMethodName());
     }
 
@@ -73,12 +72,12 @@ public class MessageRepositoryIntegrationTest {
 
         // Find channel with specified name
         List<Channel> channels = channelRepository.findChannelByName(channelName);
-        assertThat (channels).isNotNull();
-        assertThat (channels.size()).isEqualTo(1);
+        assertThat(channels).isNotNull();
+        assertThat(channels.size()).isEqualTo(1);
 
         // Retrieve channel
         Channel channel = channels.get(0);
-        assertThat (channel).isNotNull();
+        assertThat(channel).isNotNull();
         assertThat(channel.getName()).isEqualTo(channelName);
 
         // Get channel id
@@ -86,12 +85,12 @@ public class MessageRepositoryIntegrationTest {
         assertThat(channelId).isEqualTo(3);
 
         // determine date
-        LocalDateTime dateTime = LocalDateTime.of(2018,9,16,10,00);
+        LocalDateTime dateTime = LocalDateTime.of(2018, 9, 16, 10, 00);
 
         // Find existing message with specified channelId and dateTime
         List<Message> messages = messageRepository.findMessageByChannelIdAndDateTime(channelId, dateTime);
-        assertThat (messages).isNotNull();
-        assertThat (messages.size()).isEqualTo(1);
+        assertThat(messages).isNotNull();
+        assertThat(messages.size()).isEqualTo(1);
         logger.info("End   test: {}", name.getMethodName());
     }
 
@@ -108,13 +107,13 @@ public class MessageRepositoryIntegrationTest {
 
         // Insert channel
         Channel savedChannel = entityManager.persist(channel);
-        assertThat (savedChannel).isNotNull();
+        assertThat(savedChannel).isNotNull();
         assertThat(savedChannel.getName()).isEqualTo(channelName);
 
         // Check that channel exists
         channels = channelRepository.findChannelByName(channelName);
-        assertThat (channels).isNotNull();
-        assertThat (channels.size()).isEqualTo(1);
+        assertThat(channels).isNotNull();
+        assertThat(channels.size()).isEqualTo(1);
 
         int channelId = savedChannel.getChannelId();
 
@@ -136,16 +135,16 @@ public class MessageRepositoryIntegrationTest {
 
         // get list of all known messages
         List<Message> messages = messageRepository.findMessageByChannelName(channelName);
-        assertThat (messages).isNotNull();
-        assertThat (messages.size()).isEqualTo(maxMessages);
+        assertThat(messages).isNotNull();
+        assertThat(messages.size()).isEqualTo(maxMessages);
 
         // Delete all messages for created channel
         messageRepository.deleteMessageByChannelId(channelId);
 
         // Check all messages are deleted
         messages = messageRepository.findMessageByChannelName(channelName);
-        assertThat (messages).isNotNull();
-        assertThat (messages.size()).isEqualTo(0);
+        assertThat(messages).isNotNull();
+        assertThat(messages.size()).isEqualTo(0);
         logger.info("End   test: {}", name.getMethodName());
     }
 }
