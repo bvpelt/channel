@@ -1,18 +1,18 @@
 package bsoft.nl.channel.security;
 
-import javax.persistence.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.hateoas.ResourceSupport;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
-public class Account {
+public class Account extends ResourceSupport implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(Account.class);
+
+    private static final long serialVersionUID = 5L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,16 +20,15 @@ public class Account {
     private Integer accountId;
 
     @org.springframework.data.annotation.Id
-    private String id;
+    private String key;
     private String username;
     private String password;
 
-    public Account()
-    {}
+    public Account() {
+    }
 
     public Account(String username, String password) {
-
-
+/*
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username(username)
                 .password(password)
@@ -37,10 +36,10 @@ public class Account {
                 .build();
 
         logger.info("Account password length: {}, value: {}", user.getPassword().length(), user.getPassword());
-
-        this.id = UUID.randomUUID().toString();
+*/
+        this.key = UUID.randomUUID().toString();
         this.username = username;
-        this.password = user.getPassword();
+        this.password = password;
     }
 
     public Integer getAccountId() {
@@ -51,12 +50,12 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public String getId() {
-        return id;
+    public String getKey() {
+        return key;
     }
 
-    public void setId(String Id) {
-        this.id = Id;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getUsername() {
@@ -66,6 +65,7 @@ public class Account {
     public void setUsername(String username) {
         this.username = username;
     }
+
     public String getPassword() {
         return password;
     }

@@ -14,7 +14,7 @@ databaseChangeLog:
               primaryKey: true
               nullable: false
         - column:
-            name: id
+            name: key
             type: varchar(40)
             constraints:
               nullable: false
@@ -31,9 +31,9 @@ databaseChangeLog:
     - createIndex:
         columns:
           column:
-            name: id
+            name: key
             type: varchar(40)
-        indexName: ix_id
+        indexName: ix_key
         tableName: account
         unique: true;
     - createIndex:

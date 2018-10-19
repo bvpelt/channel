@@ -22,7 +22,7 @@ import java.util.List;
 @CrossOrigin(origins = "*",
         allowCredentials = "true",
         allowedHeaders = {"*"},
-        methods = { RequestMethod.GET,
+        methods = {RequestMethod.GET,
                 RequestMethod.DELETE,
                 RequestMethod.POST,
                 RequestMethod.OPTIONS

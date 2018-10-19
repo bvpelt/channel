@@ -1,6 +1,5 @@
 package bsoft.nl.channel.security;
 
-import bsoft.nl.channel.domain.Channel;
 import org.springframework.hateoas.ResourceSupport;
 
 import java.io.Serializable;

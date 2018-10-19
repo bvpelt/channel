@@ -3,3 +3,5 @@ drop table channel cascade;
 drop table message cascade;
 drop table databasechangelog;
 drop table databasechangeloglock;
+
+select * from channel;

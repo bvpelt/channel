@@ -17,13 +17,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @CrossOrigin(origins = "*",
-             allowCredentials = "true",
-             allowedHeaders = {"*"},
-             methods = { RequestMethod.GET,
-                         RequestMethod.DELETE,
-                         RequestMethod.POST,
-                         RequestMethod.OPTIONS
-                        })
+        allowCredentials = "true",
+        allowedHeaders = {"*"},
+        methods = {RequestMethod.GET,
+                RequestMethod.DELETE,
+                RequestMethod.POST,
+                RequestMethod.OPTIONS
+        })
 @RestController
 public class ChannelController extends ResourceSupport {
     private static final Logger logger = LoggerFactory.getLogger(ChannelController.class);

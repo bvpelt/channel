@@ -64,4 +64,21 @@ public class MessageService {
         return savedMessage;
     }
 
+    @CacheEvict(cacheNames = "allMessages", key = "#channel", allEntries = false)
+    public boolean deleteMessageByChannel(final String channel) {
+        boolean deleted = false;
+        List<Channel> existingChannel = null;
+
+        // Find channel id
+        // only one can be found!
+        existingChannel = channelRepository.findChannelByName(channel);
+
+        if ((existingChannel != null) && (existingChannel.size() == 1)) {
+
+            messageRepository.deleteMessageByChannelId(existingChannel.get(0).getChannelId());
+            deleted = true;
+        }
+        return deleted;
+    }
+
 }

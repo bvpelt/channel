@@ -38,7 +38,7 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 Account account = accountRepository.findByUsername(username);
-                if(account != null) {
+                if (account != null) {
                     User user = new User(account.getUsername(), account.getPassword(), true, true, true, true,
                             AuthorityUtils.createAuthorityList("USER"));
                     return user;

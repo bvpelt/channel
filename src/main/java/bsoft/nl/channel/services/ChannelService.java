@@ -22,11 +22,13 @@ public class ChannelService {
 
     private ChannelRepository channelRepository = null;
     private MessageRepository messageRepository = null;
+    private MessageService messageService = null;
 
     @Autowired
-    public ChannelService(ChannelRepository channelRepository, MessageRepository messageRepository) {
+    public ChannelService(ChannelRepository channelRepository, MessageRepository messageRepository, MessageService messageService) {
         this.channelRepository = channelRepository;
         this.messageRepository = messageRepository;
+        this.messageService = messageService;
     }
 
     @Cacheable("allChannels")
@@ -67,9 +69,14 @@ public class ChannelService {
         if ((existingChannel != null) && (existingChannel.size() == 1)) {
             Channel channel = existingChannel.get(0);
             logger.debug("Channel already exists, id: {} name:{}", channel.getChannelId(), channel.getName());
-            messageRepository.deleteMessageByChannelId(channel.getChannelId());
-            channelRepository.deleteChannelByName(channelName);
-            deleted = true;
+
+            //messageRepository.deleteMessageByChannelId(channel.getChannelId());
+            //First delete all messages then delete the channel
+            boolean messageDeleted = messageService.deleteMessageByChannel(channelName);
+            if (messageDeleted) {
+                channelRepository.delete(existingChannel.get(0));
+                deleted = true;
+            }
         } else {
             logger.error("Channel name: {} didnot exist", channelName);
         }

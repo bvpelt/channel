@@ -1,34 +1,34 @@
-message,datetime,channelid
-Texel is a beautifull island,2018-09-16T10:00:00,1
-Assen is de hoofdstad van Drente,2018-09-16T10:00:00,3
-Arnhem is de hoofdstad van Gelderland,2018-09-16T10:00:01,3
-'s-Hertogenbosh is de hoofdstad van Noord Brabant,2018-09-16T10:00:05,3
-Middelburg is de hoofdstad van Zeeland,2018-09-16T10:00:10,3
-Maastricht is de hoofdstad van Limburg,2018-09-16T10:00:20,3
-Zwolle is de hoofdstad van Overijssel,2018-09-16T10:00:30,3
-Groningen is de hoofdstad van Groningen,2018-09-16T10:00:40,3
-Leeuwarden is de hoofdstad van Friesland,2018-09-16T10:00:50,3
-Haarlem is de hoofdstad van Noord Holland,2018-09-16T10:00:55,3
-Amsterdam is de hoofdstad van Nederland,2018-09-16T10:01:00,3
-Bonn is de hoofdstad van Duitsland,2018-09-16T10:01:10,3
-London is de hoofdstad van Groot Brittannie,2018-09-16T10:01:20,3
-Parijs is de hoofdstad van Frankrijk,2018-09-16T10:01:30,3
-Madrid is de hoofdstad van Spanje,2018-09-16T10:01:40,3
-Lissabon is de hoofdstad van Portugal,2018-09-16T10:01:50,3
-Rome is de hoofdstad van Italie,2018-09-16T10:02:00,3
-Warschaw is de hoofdstad van Polen,2018-09-16T10:02:10,3
-Moskou is de hoofdstad van Rusland,2018-09-16T10:02:20,3
-Peking is de hoofdstad van China,2018-09-16T10:02:30,3
-Tokio is de hoofdstad van Japan,2018-09-16T10:02:40,3
-Jeruzalem is de hoofdstad van Israel,2018-09-16T10:02:50,3
-Drente is de hoofdstad van Assen,2018-09-16T10:03:00,3
-Lelystand is de hoofdstad van Flevoland,2018-09-16T10:03:10,3
-Utrecht is de hoofdstad van Utrecht,2018-09-16T10:03:20,3
-Den Haag is de hoofdstad van Zuid Holland,2018-09-16T10:03:30,3
-Algiers is de hoofdstad van Algerije,2018-09-16T10:03:40,3
-Luanda is de hoofdstad van Angola,2018-09-16T10:03:50,3
-Porto-Novo is de hoofdstad van Benin,2018-09-16T10:04:00,3
-Gaborone is de hoofdstad van Botswana,2018-09-16T10:04:10,3
-Ouagadougou is de hoofdstad van Burkina Faso,2018-09-16T10:04:20,3
-Bujumbura is de hoofdstad van Burundi,2018-09-16T10:04:30,3
+message                                                 ,datetime           ,channelid
+Texel is a beautifull island                            ,2018-09-16T10:00:00,1
+Assen is de hoofdstad van Drente                        ,2018-09-16T10:00:00,3
+Arnhem is de hoofdstad van Gelderland                   ,2018-09-16T10:00:01,3
+'s-Hertogenbosh is de hoofdstad van Noord Brabant       ,2018-09-16T10:00:05,3
+Middelburg is de hoofdstad van Zeeland                  ,2018-09-16T10:00:10,3
+Maastricht is de hoofdstad van Limburg                  ,2018-09-16T10:00:20,3
+Zwolle is de hoofdstad van Overijssel                   ,2018-09-16T10:00:30,3
+Groningen is de hoofdstad van Groningen                 ,2018-09-16T10:00:40,3
+Leeuwarden is de hoofdstad van Friesland                ,2018-09-16T10:00:50,3
+Haarlem is de hoofdstad van Noord Holland               ,2018-09-16T10:00:55,3
+Amsterdam is de hoofdstad van Nederland                 ,2018-09-16T10:01:00,3
+Bonn is de hoofdstad van Duitsland                      ,2018-09-16T10:01:10,3
+London is de hoofdstad van Groot Brittannie             ,2018-09-16T10:01:20,3
+Parijs is de hoofdstad van Frankrijk                    ,2018-09-16T10:01:30,3
+Madrid is de hoofdstad van Spanje                       ,2018-09-16T10:01:40,3
+Lissabon is de hoofdstad van Portugal                   ,2018-09-16T10:01:50,3
+Rome is de hoofdstad van Italie                         ,2018-09-16T10:02:00,3
+Warschaw is de hoofdstad van Polen                      ,2018-09-16T10:02:10,3
+Moskou is de hoofdstad van Rusland                      ,2018-09-16T10:02:20,3
+Peking is de hoofdstad van China                        ,2018-09-16T10:02:30,3
+Tokio is de hoofdstad van Japan                         ,2018-09-16T10:02:40,3
+Jeruzalem is de hoofdstad van Israel                    ,2018-09-16T10:02:50,3
+Drente is de hoofdstad van Assen                        ,2018-09-16T10:03:00,3
+Lelystand is de hoofdstad van Flevoland                 ,2018-09-16T10:03:10,3
+Utrecht is de hoofdstad van Utrecht                     ,2018-09-16T10:03:20,3
+Den Haag is de hoofdstad van Zuid Holland               ,2018-09-16T10:03:30,3
+Algiers is de hoofdstad van Algerije                    ,2018-09-16T10:03:40,3
+Luanda is de hoofdstad van Angola                       ,2018-09-16T10:03:50,3
+Porto-Novo is de hoofdstad van Benin                    ,2018-09-16T10:04:00,3
+Gaborone is de hoofdstad van Botswana                   ,2018-09-16T10:04:10,3
+Ouagadougou is de hoofdstad van Burkina Faso            ,2018-09-16T10:04:20,3
+Bujumbura is de hoofdstad van Burundi                   ,2018-09-16T10:04:30,3
 Bangui is de hoofdstad van Centraal-Afrikaanse Republiek,2018-09-16T10:04:40,3

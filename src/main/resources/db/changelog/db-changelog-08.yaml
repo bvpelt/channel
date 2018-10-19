@@ -7,10 +7,7 @@ databaseChangeLog:
     - loadData:
         columns:
         - column:
-            name: accountid
-            type: NUMERIC
-        - column:
-            name: id
+            name: key
             type: STRING
         - column:
             name: username

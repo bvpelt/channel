@@ -1,2 +1,3 @@
-id,username,password
+key,username,password
 f73e0492-b6ef-4bad-95c9-729cbbaf3054,admin,{bcrypt}$2a$10$wCgOm8.Ib51iJCdmF4cuweH1EH.cqyX7qRX21Pcxw/Vbs72G94Sy2
+8936ab21-256e-4e66-860d-55b779f3beb4,system,{bcrypt}$2a$10$7UbblSaVdCef4NFw25ApZOCEtpDhc.A3ySyCh0FPJ3DNozRuyKAVO

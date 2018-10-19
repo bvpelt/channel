@@ -1,10 +1,10 @@
 package bsoft.nl.channel;
 
-import bsoft.nl.channel.domain.Channel;
+import bsoft.nl.channel.controllers.AccountController;
 import bsoft.nl.channel.repositories.AccountRepository;
-import bsoft.nl.channel.repositories.ChannelRepository;
 import bsoft.nl.channel.security.Account;
 import bsoft.nl.channel.security.AccountsList;
+import bsoft.nl.channel.services.AccountService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -14,8 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -38,7 +37,6 @@ public class AccountRepositoryIntegrationTest {
     private AccountRepository accountRepository;
 
     public AccountRepositoryIntegrationTest() {
-
     }
 
     @Test
@@ -47,12 +45,11 @@ public class AccountRepositoryIntegrationTest {
         Account account = new Account("testuser", "geheim");
         entityManager.persist(account);
 
-        assertThat(account.getId()).isNotNull();
-        assertThat(account.getId().length()).isGreaterThan(0);
-        logger.info("account - accountId: {} Id: {} username: {} password: {}", account.getAccountId(), account.getId(), account.getUsername(), account.getPassword());
+        assertThat(account.getKey()).isNotNull();
+        assertThat(account.getKey().length()).isGreaterThan(0);
+        logger.info("account - accountId: {} Id: {} username: {} password: {}", account.getAccountId(), account.getKey(), account.getUsername(), account.getPassword());
         logger.info("End   test: {}", name.getMethodName());
     }
-
 
     @Test
     public void getAccounts() {
@@ -81,10 +78,9 @@ public class AccountRepositoryIntegrationTest {
         // get list of all known channels
         int accountid = 1; // existing account
         Account account = accountRepository.findByAccountId(accountid);
+        assertThat(account).isNotNull();
 
-
-        logger.info("account - accountId: {} Id: {} username: {} password: {}", account.getAccountId(), account.getId(), account.getUsername(), account.getPassword());
-
+        logger.info("account - accountId: {} Key: {} username: {} password: {}", account.getAccountId(), account.getKey(), account.getUsername(), account.getPassword());
         logger.info("End   test: {}", name.getMethodName());
     }
 
@@ -97,10 +93,69 @@ public class AccountRepositoryIntegrationTest {
         String username = "admin"; // existing account
         Account account = accountRepository.findByUsername(username);
 
+        assertThat(account).isNotNull();
+        logger.info("account - accountId: {} Key: {} username: {} password: {}", account.getAccountId(), account.getKey(), account.getUsername(), account.getPassword());
+        logger.info("End   test: {}", name.getMethodName());
+    }
 
-        logger.info("account - accountId: {} Id: {} username: {} password: {}", account.getAccountId(), account.getId(), account.getUsername(), account.getPassword());
+    @Test
+    public void getAccountsByController() {
+        logger.info("Start test: {}", name.getMethodName());
+
+        AccountService as = new AccountService(accountRepository);
+        AccountController ac = new AccountController(as);
+
+        ResponseEntity<AccountsList> al = ac.getAccounts();
+        logger.info("Account list: {} - {}", al.toString(), "accountid: " + al.getBody().getAccount().get(0).getAccountId() + " username: " + al.getBody().getAccount().get(0).getUsername() + " key: " + al.getBody().getAccount().get(0).getKey());
+        assertThat(al).isNotNull();
+        assertThat(al.getBody()).isNotNull();
+        assertThat(al.getBody().getAccount()).isNotNull();
+        assertThat(al.getBody().getAccount().size()).isEqualTo(1);
 
         logger.info("End   test: {}", name.getMethodName());
+    }
+
+    @Test
+    public void getUserByController() {
+        logger.info("Start test: {}", name.getMethodName());
+
+        AccountService as = new AccountService(accountRepository);
+        AccountController ac = new AccountController(as);
+
+        ResponseEntity<Account> al = ac.getUser("admin");
+        logger.info("Account list: {} - {}", al.toString(), "accountid: " + al.getBody().getAccountId() + " username: " + al.getBody().getUsername() + " key: " + al.getBody().getKey());
+        assertThat(al).isNotNull();
+        assertThat(al.getBody()).isNotNull();
+        assertThat(al.getBody()).isNotNull();
+
+        logger.info("End   test: {}", name.getMethodName());
+    }
+
+    @Test
+    public void createUserByController() {
+        logger.info("Start test: {}", name.getMethodName());
+
+        AccountService as = new AccountService(accountRepository);
+        AccountController ac = new AccountController(as);
+
+        ResponseEntity<Account> account = null;
+        int maxSize = 10;
+
+        for (int i = 0; i < maxSize; i++) {
+            Account act = new Account();
+            act.setUsername("user_" + i);
+            act.setPassword("password_" + i);
+            account = ac.createAccount(act);
+
+            assertThat(account).isNotNull();
+        }
+
+        ResponseEntity<AccountsList> al = ac.getAccounts();
+        logger.info("Account list: {} - {}", al.toString(), "accountid: " + al.getBody().getAccount().get(0).getAccountId() + " username: " + al.getBody().getAccount().get(0).getUsername() + " key: " + al.getBody().getAccount().get(0).getKey());
+        assertThat(al).isNotNull();
+        assertThat(al.getBody()).isNotNull();
+        assertThat(al.getBody().getAccount()).isNotNull();
+        assertThat(al.getBody().getAccount().size()).isEqualTo(maxSize + 1);
     }
 
 }
