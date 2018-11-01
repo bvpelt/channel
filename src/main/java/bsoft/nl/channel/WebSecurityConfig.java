@@ -19,6 +19,22 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .antMatchers("/login").permitAll()
+                .antMatchers("/app", "/addChannel", "/addMessage", "/accounts**", "/channels**", "/messages**").hasAuthority("USER")
+                .antMatchers("/addAccount").hasAuthority("ADMIN")
+//                .anyRequest()
+//                .fullyAuthenticated()
+
+                .and()
+                .csrf().disable();
+/*
+  http
+                .cors()
+                .and()
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/**").hasAuthority("USER")
 
                 .anyRequest()
@@ -26,26 +42,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .csrf().disable();
+ */
 
-         /*
-        http
-                .cors()
-                .and()
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/**").hasAuthority("USER")
-//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                .anyRequest()
-                .fullyAuthenticated()
-                .and()
-//                .formLogin()
-//                .and()
 
-                .csrf()
-                .disable();
-                */
     }
 
 }

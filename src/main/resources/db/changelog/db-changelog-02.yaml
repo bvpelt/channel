@@ -2,7 +2,6 @@ databaseChangeLog:
 - changeSet:
     id: 2
     author: bart
-    runonChange: true
     changes:
     - loadData:
         columns:

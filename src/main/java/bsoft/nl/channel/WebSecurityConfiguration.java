@@ -43,11 +43,9 @@ public class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdap
                             AuthorityUtils.createAuthorityList("USER"));
                     return user;
                 } else {
-                    throw new UsernameNotFoundException("could not find the user '"
-                            + username + "'");
+                    throw new UsernameNotFoundException("could not find the user '" + username + "'");
                 }
             }
-
         };
     }
 }

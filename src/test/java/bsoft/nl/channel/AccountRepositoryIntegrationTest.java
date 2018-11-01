@@ -64,7 +64,7 @@ public class AccountRepositoryIntegrationTest {
         // get list of all known channels
         List<Account> accounts = accountRepository.findAll();
         assertThat(accounts).isNotNull();
-        assertThat(accounts.size()).isEqualTo(maxAccounts + 1);
+        assertThat(accounts.size()).isEqualTo(maxAccounts + 2);
 
         logger.info("End   test: {}", name.getMethodName());
     }
@@ -110,7 +110,7 @@ public class AccountRepositoryIntegrationTest {
         assertThat(al).isNotNull();
         assertThat(al.getBody()).isNotNull();
         assertThat(al.getBody().getAccount()).isNotNull();
-        assertThat(al.getBody().getAccount().size()).isEqualTo(1);
+        assertThat(al.getBody().getAccount().size()).isEqualTo(2);
 
         logger.info("End   test: {}", name.getMethodName());
     }
@@ -155,7 +155,7 @@ public class AccountRepositoryIntegrationTest {
         assertThat(al).isNotNull();
         assertThat(al.getBody()).isNotNull();
         assertThat(al.getBody().getAccount()).isNotNull();
-        assertThat(al.getBody().getAccount().size()).isEqualTo(maxSize + 1);
+        assertThat(al.getBody().getAccount().size()).isEqualTo(maxSize + 2);
     }
 
 }

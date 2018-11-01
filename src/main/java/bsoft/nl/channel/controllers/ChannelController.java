@@ -11,6 +11,7 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,7 +36,7 @@ public class ChannelController extends ResourceSupport {
         this.channelService = channelService;
     }
 
-
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/channels")
     public ResponseEntity<ChannelsList> getChannels() {
         logger.info("Get channel list");
@@ -74,6 +75,7 @@ public class ChannelController extends ResourceSupport {
     /*
     POST - Create new channel
      */
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/channels")
     public ResponseEntity<Channel> createChannel(@RequestBody final Channel channel) {
         logger.info("Create channel for: {}", channel);
@@ -95,6 +97,7 @@ public class ChannelController extends ResourceSupport {
     /*
    Delete - Delete an existing channel
     */
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/channels/{channelName}")
     public ResponseEntity<Channel> deleteChannel(@PathVariable String channelName) {
         logger.info("Delete channel for: {}", channelName);

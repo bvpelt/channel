@@ -8,7 +8,6 @@ databaseChangeLog:
 - changeSet:
     id: 6
     author: bart
-    runonChange: true
     changes:
     - loadData:
         columns:

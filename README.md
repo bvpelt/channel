@@ -31,7 +31,7 @@ message content
     - [example configurations](https://www.programcreek.com/java-api-examples/?api=org.springframework.security.config.http.SessionCreationPolicy)
     - [example 2015](http://ryanjbaxter.com/2015/01/06/securing-rest-apis-with-spring-boot/)
     - [spring tutorial](https://spring.io/guides/tutorials/spring-security-and-angular-js/)
-    
+- [Caching](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching)    
     
 ## Development
 - Test using h2, console during test available at http://localhost:8080/h2-console 
